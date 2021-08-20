@@ -24,3 +24,23 @@ Route::post('blogs/create','BlogController@store')->name('simpanblogs');
 Route::get('blogs/{id}/edit','BlogController@edit');
 Route::post('blogs/{id}/update','BlogController@update');
 Route::get('blogs/{id}/delete','BlogController@delete');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+ Auth::routes();
+ Route::get('/home', 'HomeController@index')->name('home');
+
+ Route::get('logout', [BlogController::class, 'logout'])->name('logout');
+ 
+
+Route::get('admin',[App\Http\Controllers\BlogController::class, 'index'])->name('admin')->middleware(['CheckRole:admin']);
+        
+ 
+//  Route::get('admin', function () { return view('admin'); })->middleware('checkRole:admin');
+//  Route::get('hubin','HubinController@index')->name('hubin')->middleware(['checkRole:admin,hubin']);
+//  Route::get('siswa', function () { return view('siswa'); });
